@@ -1,5 +1,5 @@
 package com.medi.backend.billing.service;
 
-public class BilingServiceImpl {
+public interface BillingService {
     
 }

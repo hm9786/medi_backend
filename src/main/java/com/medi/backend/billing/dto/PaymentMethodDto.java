@@ -1,5 +1,5 @@
 package com.medi.backend.billing.dto;
 
-public class Biling {
+public class PaymentMethodDto {
     
 }

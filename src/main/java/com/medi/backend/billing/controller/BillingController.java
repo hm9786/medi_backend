@@ -1,5 +1,5 @@
 package com.medi.backend.billing.controller;
 
-public class BilingController {
+public class BillingController {
     
 }
