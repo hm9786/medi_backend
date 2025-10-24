@@ -3,5 +3,20 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.medi.backend.user.mapper.UserMapper">
+        <!-- 전체 사용자 조회 -->
+    <select id="selectAllUsers" resultType="com.medi.backend.user.dto.User">
+        SELECT 
+            id,
+            email,
+            password,
+            name,
+            phone,
+            is_terms_agreed,
+            role,
+            DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') as createdAt,
+            DATE_FORMAT(updated_at, '%Y-%m-%d %H:%i:%s') as updatedAt
+        FROM users
+        ORDER BY id DESC
+    </select>
 
 </mapper>
