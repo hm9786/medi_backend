@@ -1,4 +1,4 @@
-package com.medi.backend.global.security.Service;
+package com.medi.backend.global.security.service;
 
 public class CustomUserDetailsService {
     
