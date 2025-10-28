@@ -1,6 +1,6 @@
 package com.medi.backend.user.service;
 
-import com.medi.backend.user.dto.User;
+import com.medi.backend.user.dto.UserDTO;
 import com.medi.backend.user.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
     
     @Override
-    public List<User> getAllUsers() {
+    public List<UserDTO> getAllUsers() {
         return userMapper.selectAllUsers();
     }
 }

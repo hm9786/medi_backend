@@ -1,19 +1,24 @@
 package com.medi.backend.user.dto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-public class User {
+@ToString(exclude = "password")
+public class UserDTO {
     private Integer id;
     private String email;
+
+    @JsonIgnore
     private String password;
+
     private String name;
     private String phone;
     private Boolean isTermsAgreed;

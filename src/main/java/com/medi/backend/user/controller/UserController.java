@@ -1,7 +1,7 @@
 package com.medi.backend.user.controller;
 
 
-import com.medi.backend.user.dto.User;
+import com.medi.backend.user.dto.UserDTO;
 import com.medi.backend.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +21,9 @@ public class UserController {
      * GET http://localhost:8080/api/users
      */
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
         System.out.println("=== 전체 사용자 조회 요청 ===");
-        List<User> users = userService.getAllUsers();
+        List<UserDTO> users = userService.getAllUsers();
         System.out.println("조회된 사용자 수: " + users.size());
         return ResponseEntity.ok(users);
     }
