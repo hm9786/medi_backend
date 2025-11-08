@@ -1,5 +1,6 @@
 package com.medi.backend.global.security.handler;
 
+import com.medi.backend.global.security.dto.CustomUserDetails;
 import com.medi.backend.user.dto.UserDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,8 +10,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -55,15 +59,33 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
             .provider((String) oauth2User.getAttribute("provider"))
             .providerId((String) oauth2User.getAttribute("providerId"))
             .profileImage((String) oauth2User.getAttribute("profileImage"))
+            .password("") // OAuth2 사용자는 비밀번호 없음
             .build();
         
-        // 세션에 사용자 정보 저장
-        HttpSession session = request.getSession();
-        session.setAttribute("user", user);
+        // CustomUserDetails 생성 (일반 로그인과 동일한 방식)
+        CustomUserDetails customUserDetails = new CustomUserDetails(user);
+        
+        // SecurityContext에 CustomUserDetails로 인증 정보 저장
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        org.springframework.security.authentication.UsernamePasswordAuthenticationToken authToken = 
+            new org.springframework.security.authentication.UsernamePasswordAuthenticationToken(
+                customUserDetails, 
+                null, 
+                customUserDetails.getAuthorities()
+            );
+        securityContext.setAuthentication(authToken);
+        SecurityContextHolder.setContext(securityContext);
+        
+        // 세션에 SecurityContext 저장 (일반 로그인과 동일한 방식)
+        HttpSession session = request.getSession(true);
+        session.setAttribute(
+            HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, 
+            securityContext
+        );
         session.setMaxInactiveInterval(30 * 60); // 30분
         
-        log.info("OAuth2 로그인 성공: userId={}, email={}, provider={}", 
-                user.getId(), user.getEmail(), user.getProvider());
+        log.info("OAuth2 로그인 성공: userId={}, email={}, provider={}, 세션 ID={}", 
+                user.getId(), user.getEmail(), user.getProvider(), session.getId());
         
         // 프론트엔드로 리다이렉트
         String targetUrl = determineTargetUrl(request, response, authentication);

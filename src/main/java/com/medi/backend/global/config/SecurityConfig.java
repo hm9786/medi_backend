@@ -166,6 +166,7 @@ public class SecurityConfig {
             )
             
             // 인증 규칙 설정
+            //여기는 나중에 리스트로 관리
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/billing/plans").permitAll() // 플랜 전체 조회
                 .requestMatchers("/api/billing/plans/{id}").permitAll() // 1개 플랜 조회
@@ -174,11 +175,16 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/register").permitAll()          // 회원가입
                 .requestMatchers("/api/auth/send-verification").permitAll() // 이메일 인증 전송
                 .requestMatchers("/api/auth/verify-email").permitAll()      // 이메일 인증 확인
+                .requestMatchers("/api/auth/me").permitAll()                // 현재 세션 확인
                 .requestMatchers("/api/auth/send-password-reset").permitAll() // 비밀번호 재설정 코드 전송
                 .requestMatchers("/api/auth/reset-password").permitAll()    // 비밀번호 재설정
                 .requestMatchers("/api/auth/oauth2/**").permitAll()         // OAuth2 API 엔드포인트
                 .requestMatchers("/oauth2/**").permitAll()                  // OAuth2 엔드포인트
                 .requestMatchers("/login/oauth2/**").permitAll()            // OAuth2 로그인 콜백
+                .requestMatchers("/api/test/**").permitAll()
+                .requestMatchers("/api/youtube/connect").authenticated()
+                .requestMatchers("/api/youtube/oauth/callback").permitAll()
+                .requestMatchers("/api/youtube/token/status").authenticated()
                 .requestMatchers("/swagger-ui/**").permitAll()              // Swagger UI
                 .requestMatchers("/v3/api-docs/**").permitAll()             // Swagger API Docs
                 .requestMatchers("/swagger-ui.html").permitAll()            // Swagger 메인
