@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -55,7 +54,7 @@ public class YouTubeOAuthService {
                 .build();
     }
 
-    public void handleCallback(String code, String baseRedirectUri, String state) {
+    public Integer handleCallback(String code, String baseRedirectUri, String state) {
         try {
             String redirectUri = baseRedirectUri;
             GoogleTokenResponse response = new GoogleAuthorizationCodeTokenRequest(
@@ -86,6 +85,7 @@ public class YouTubeOAuthService {
             dto.setAccessTokenExpiresAt(DF.format(expiresAt));
             dto.setTokenStatus("ACTIVE");
             tokenMapper.upsert(dto);
+            return userId;
         } catch (Exception e) {
             throw new RuntimeException("OAuth callback handling failed", e);
         }
