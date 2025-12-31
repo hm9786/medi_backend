@@ -123,7 +123,7 @@ backend/src/main/java/com/medi/backend/
                              │ HTTPS (Nginx Proxy)
                              ↓
                   ┌──────────────────────┐
-                  │   Nginx (80/443)     │
+                  │      Nginx           │
                   │   Load Balancing     │
                   └──────────┬───────────┘
                              │
@@ -131,8 +131,8 @@ backend/src/main/java/com/medi/backend/
          │                   │                   │
          ↓                   ↓                   ↓
 ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
-│  Next.js (3000) │  │ Spring Boot     │  │  FastAPI (8000) │
-│                 │  │    (8080)       │  │                 │
+│  Next.js        │  │ Spring Boot     │  │  FastAPI        │
+│                 │  │                 │  │                 │
 │  - App Router    │  │  - Core Logic   │  │  - AI Service   │
 │  - Dashboard     │  │  - Security     │  │  - LLM Agent    │
 └─────────────────┘  └────────┬────────┘  └────────┬────────┘
@@ -142,9 +142,8 @@ backend/src/main/java/com/medi/backend/
                     ↓         ↓        ↓          ↓
             ┌──────────┐ ┌────────┐ ┌──────────────────┐
             │  MySQL   │ │ Redis  │ │   OpenAI API     │
-            │  (3306)  │ │ (6379) │ │                  │
-            │          │ │        │ │  - GPT-4o        │
-            │ - RDBMS  │ │ - Queue│ │  - Function Call │
+            │          │ │        │ │                  │
+            │ - RDBMS  │ │ - Queue│ │  - GPT-4o        │
             └──────────┘ └────────┘ └──────────────────┘
                     ↑           
                     │ YouTube Data API v3
