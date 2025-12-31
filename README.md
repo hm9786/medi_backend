@@ -18,7 +18,7 @@ https://github.com/user-attachments/assets/e8cbd6e2-28b3-43f4-a85a-82d1a80314af
 | 📊 메인페이지 (Enter Page) | 💬 AI 챗봇 (Chatbot Hub) |
 | :---: | :---: |
 | ![메인 홈 - 이미지 설명](https://github.com/user-attachments/assets/038905a0-dd3d-4d04-a696-e6900e78cd31) | ![챗봇 - 이미지 설명](https://github.com/user-attachments/assets/d531e791-5808-4e22-9261-8e751b39cf47) |
-| **실시간 댓글 통계 및 유해성 지표** | **SSE 기반 LLM 실시간 스트리밍 대화** |
+| **홈 페이지** | **SSE 기반 LLM 실시간 스트리밍 대화** |
 
 | 📊 채널 대시보드 (Dashboard) | 🗂️ 필터링 댓글 목록 (Filtering) |
 | :---: | :---: |
